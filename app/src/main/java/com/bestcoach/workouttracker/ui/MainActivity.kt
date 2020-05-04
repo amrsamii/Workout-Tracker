@@ -1,7 +1,8 @@
-package com.bestcoach.workouttracker
+package com.bestcoach.workouttracker.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bestcoach.workouttracker.R
 
 class MainActivity : AppCompatActivity() {
 

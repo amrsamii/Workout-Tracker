@@ -38,10 +38,15 @@ android {
         enabled = true
     }
 
+    aaptOptions {
+        noCompress "tflite"
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // Add posenet module to this module
     implementation project(":posenet")
 
     // Kotlin
@@ -55,6 +60,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
 
     // Local unit tests
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
 
     // AndroidX test - Instrumented testing
@@ -64,4 +70,13 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+
+    // CameraX core library
+    implementation "androidx.camera:camera-core:$camerax_version"
+
+    // CameraX PreviewView class
+    implementation 'androidx.camera:camera-view:1.0.0-alpha10'
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
 }
