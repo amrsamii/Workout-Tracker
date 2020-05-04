@@ -1,0 +1,3 @@
+rootProject.name='Workout Tracker'
+include ':app'
+include ':posenet'
