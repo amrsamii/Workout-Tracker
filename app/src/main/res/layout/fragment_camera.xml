@@ -6,24 +6,17 @@
 
     </data>
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.camera.CameraFragment">
+        android:background="@android:color/black"
+        tools:context=".ui.MainActivity">
 
-        <RelativeLayout
-            android:id="@+id/constraint_layout"
+        <androidx.camera.view.PreviewView
+            android:id="@+id/view_finder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/black"
-            tools:context=".ui.MainActivity">
+            android:layout_height="match_parent" />
 
-            <androidx.camera.view.PreviewView
-                android:id="@+id/view_finder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </RelativeLayout>
-
-    </FrameLayout>
+    </RelativeLayout>
 </layout>
