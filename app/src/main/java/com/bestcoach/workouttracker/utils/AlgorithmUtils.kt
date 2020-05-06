@@ -172,48 +172,48 @@ fun pullExercise(person: Person): String {
 fun plankExercise(person: Person): String {
     currentExercise = Exercises.PLANK
 
-    val LEFT_HIP: KeyPoint? = person.keyPoints.find {
+    val leftHip: KeyPoint? = person.keyPoints.find {
         it.bodyPart == BodyPart.LEFT_HIP
     }
 
-    val RIGHT_HIP: KeyPoint? = person.keyPoints.find {
+    val rightHip: KeyPoint? = person.keyPoints.find {
         it.bodyPart == BodyPart.RIGHT_HIP
     }
 
-    val LEFT_SHOULDER: KeyPoint? = person.keyPoints.find {
+    val leftShoulder: KeyPoint? = person.keyPoints.find {
         it.bodyPart == BodyPart.LEFT_SHOULDER
     }
 
-    val RIGHT_SHOULDER: KeyPoint? = person.keyPoints.find {
+    val rightShoulder: KeyPoint? = person.keyPoints.find {
         it.bodyPart == BodyPart.RIGHT_SHOULDER
     }
 
-    val LEFT_ANKLE: KeyPoint? = person.keyPoints.find {
+    val leftAnkle: KeyPoint? = person.keyPoints.find {
         it.bodyPart == BodyPart.LEFT_ANKLE
     }
 
-    val RIGHT_ANKLE: KeyPoint? = person.keyPoints.find {
+    val rightAnkle: KeyPoint? = person.keyPoints.find {
         it.bodyPart == BodyPart.RIGHT_ANKLE
     }
 
-    val R_hip_R_ankle_x = RIGHT_HIP!!.position.x - RIGHT_ANKLE!!.position.x
+    val R_hip_R_ankle_x = rightHip!!.position.x - rightAnkle!!.position.x
 
-    val R_hip_R_ankle_y = RIGHT_HIP.position.y - RIGHT_ANKLE.position.y
+    val R_hip_R_ankle_y = rightHip.position.y - rightAnkle.position.y
 
-    val R_hip_R_shoulder_x = RIGHT_HIP.position.x - RIGHT_SHOULDER!!.position.x
+    val R_hip_R_shoulder_x = rightHip.position.x - rightShoulder!!.position.x
 
-    val R_hip_R_shoulder_y = RIGHT_HIP.position.y - RIGHT_SHOULDER.position.y
+    val R_hip_R_shoulder_y = rightHip.position.y - rightShoulder.position.y
 
     var Right_angle_plank = atan2(R_hip_R_ankle_y.toDouble(), R_hip_R_ankle_x.toDouble()) -
             atan2(R_hip_R_shoulder_y.toDouble(), R_hip_R_shoulder_x.toDouble())
 
-    val L_hip_L_ankle_x = LEFT_HIP!!.position.x - LEFT_ANKLE!!.position.x
+    val L_hip_L_ankle_x = leftHip!!.position.x - leftAnkle!!.position.x
 
-    val L_hip_L_ankle_y = LEFT_HIP.position.y - LEFT_ANKLE.position.y
+    val L_hip_L_ankle_y = leftHip.position.y - leftAnkle.position.y
 
-    val L_hip_L_shoulder_x = LEFT_HIP.position.x - LEFT_SHOULDER!!.position.x
+    val L_hip_L_shoulder_x = leftHip.position.x - leftShoulder!!.position.x
 
-    val L_hip_L_shoulder_y = LEFT_HIP.position.y - LEFT_SHOULDER.position.y
+    val L_hip_L_shoulder_y = leftHip.position.y - leftShoulder.position.y
 
     var Left_angle_plank = atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
             atan2(L_hip_L_ankle_y.toDouble(), L_hip_L_ankle_x.toDouble())
@@ -246,6 +246,84 @@ fun plankExercise(person: Person): String {
     }
 }
 
+fun sidePlankExercise(person: Person): String {
+    currentExercise = Exercises.SIDE_PLANK
+
+    val leftHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_HIP
+    }
+
+    val rightHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_HIP
+    }
+
+    val leftShoulder: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_SHOULDER
+    }
+
+    val rightShoulder: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_SHOULDER
+    }
+
+    val leftAnkle: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_ANKLE
+    }
+
+    val rightAnkle: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_ANKLE
+    }
+
+    val R_hip_R_ankle_x = rightHip!!.position.x - rightAnkle!!.position.x
+
+    val R_hip_R_ankle_y = rightHip.position.y - rightAnkle.position.y
+
+    val R_hip_R_shoulder_x = rightHip.position.x - rightShoulder!!.position.x
+
+    val R_hip_R_shoulder_y = rightHip.position.y - rightShoulder.position.y
+
+    var Right_angle_side_plank = atan2(R_hip_R_ankle_y.toDouble(), R_hip_R_ankle_x.toDouble()) -
+            atan2(R_hip_R_shoulder_y.toDouble(), R_hip_R_shoulder_x.toDouble())
+
+    val L_hip_L_ankle_x = leftHip!!.position.x - leftAnkle!!.position.x
+
+    val L_hip_L_ankle_y = leftHip.position.y - leftAnkle.position.y
+
+    val L_hip_L_shoulder_x = leftHip.position.x - leftShoulder!!.position.x
+
+    val L_hip_L_shoulder_y = leftHip.position.y - leftShoulder.position.y
+
+    var Left_angle_side_plank =
+        atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
+                atan2(L_hip_L_ankle_y.toDouble(), L_hip_L_ankle_x.toDouble())
+
+    Left_angle_side_plank = abs(Left_angle_side_plank * (180 / kotlin.math.PI))
+    Right_angle_side_plank = abs(Right_angle_side_plank * (180 / kotlin.math.PI))
+
+    if (Left_angle_side_plank > 180) {
+        Left_angle_side_plank = 360 - Left_angle_side_plank
+    }
+
+    if (Right_angle_side_plank > 180) {
+        Right_angle_side_plank = 360 - Right_angle_side_plank
+    }
+
+    if (Right_angle_side_plank > (180 + ERROR_MARGIN) || Left_angle_side_plank > (180 - ERROR_MARGIN)) {
+        correctFlag = 0
+        return "Lower your WAIST"
+
+    } else if (Right_angle_side_plank < (180 + ERROR_MARGIN) || Left_angle_side_plank < (180 - ERROR_MARGIN)) {
+        correctFlag = 0
+        return "Raise your WAIST"
+
+    } else if (correctFlag == 0) {
+        correctFlag = 1
+        return "You are correct"
+
+    } else {
+        return ""
+    }
+}
+
 fun trackExercise(exercise: Exercise, context: Context): String {
 
     var status = ""
@@ -267,6 +345,12 @@ fun trackExercise(exercise: Exercise, context: Context): String {
                 if (currentExercise != Exercises.PLANK) correctFlag = 0
                 status = plankExercise(exercise.person)
             }
+
+            context.getString(R.string.SIDE_PLANK) -> {
+                if (currentExercise != Exercises.SIDE_PLANK) correctFlag = 0
+                status = sidePlankExercise(exercise.person)
+            }
+
         }
     }
 
