@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Workout Tracker</string>
+    <string name="PUSH">push</string>
 </resources>
