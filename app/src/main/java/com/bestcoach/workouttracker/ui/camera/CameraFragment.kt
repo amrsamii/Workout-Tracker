@@ -6,6 +6,8 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.hardware.display.DisplayManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -219,6 +221,10 @@ class CameraFragment : Fragment() {
 
         // Perform inference.
         val person = posenet.estimateSinglePose(scaledBitmap)
-        canvasView.draw(posenet, person, scaledBitmap)
+        activity?.runOnUiThread {
+            canvasView.draw(posenet, person, scaledBitmap)
+            Timber.d("Thread name: ${Thread.currentThread().name}")
+        }
+
     }
 }
