@@ -1,7 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+ Copyright 2016 The TensorFlow Authors. All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
 <resources>
     <string name="app_name">Workout Tracker</string>
     <string name="PUSH">push</string>
     <string name="PULL">pull</string>
     <string name="PLANK">plank</string>
     <string name="SIDE_PLANK">sidePlank</string>
+  <string name="tfe_pn_app_name" translation_description="You can workout everywhere at home, gym or club.
+But more importantly than starting a workout is to do the exercise in the correct form.
+Thus you can avoid:
+ Injuries.
+ Lower gains even after long training sessions.
+ An asymmetry muscle shape.
+Also you will have the benefits:
+ Being in shape in a shorter time.
+ Increasing the reps Count.
+ A healthier body.
+So we came up with the idea of a workout tracker to track your body posture while training and detect any mistakes in the exercise.
+First it identifies the type of exercise you are doing whether it is: push-ups,pull-ups,sit-ups and much more.
+Then it will track your body posture movement and warn you if you do any mistake, also it will guide you to the correct form of the exercise so that avoiding any risks caused by wrong form training. [CHAR_LIMIT=4000]">Workout Tracker</string>
+  <string name="tfe_pn_request_permission" translation_description="Request camera permission [CHAR_LIMIT=40]">This app needs camera permission.</string>
+  <string name="tfe_pn_camera_error" translation_description="Error regarding camera support[CHAR_LIMIT=40]">This device doesn\'t support Camera2 API.</string>
+    <string name="Title">Workout Tracker</string>
+  <string name="selected_item">Selected item:</string>
+  <string name="welcome_to_workout_tracker">Welcome to Workout Tracker</string>
+  <string name="select_exercise">Please Select Exercise Type :-</string>
+  <string name="start">Start</string>
+  <string name="workout_trainer_logo">Workout Trainer Logo</string>
+  <string-array name="Exercises">
+    <item>None</item>
+    <item>Push-Ups</item>
+    <item>Pull-Ups</item>
+    <item>Cross</item>
+    <item>Crunches</item>
+
+  </string-array>
 </resources>

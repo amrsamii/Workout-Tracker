@@ -15,5 +15,21 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
         tools:context=".MainActivity"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="80sp"
+        android:paddingEnd="10sp"
+        android:paddingBottom="5sp"
+        android:src="@drawable/workout_tracker_logo" />
 
+<TextView
+android:id="@+id/textView"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:fontFamily="@font/aclonica"
+android:paddingTop="85sp"
+android:text="@string/Title"
+android:textAlignment="center"
+android:textColor="@color/tfe_color_primary_dark"
+android:textSize="14sp" />
 </merge>
