@@ -20,14 +20,13 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bestcoach.workouttracker.R
 import com.bestcoach.workouttracker.databinding.FragmentCameraBinding
 import com.bestcoach.workouttracker.ui.CanvasView
 import com.bestcoach.workouttracker.ui.permissions.PermissionsFragment
+import com.bestcoach.workouttracker.utils.*
 import com.bestcoach.workouttracker.utils.ImageUtils.aspectRatio
 import com.bestcoach.workouttracker.utils.ImageUtils.cropBitmap
-import com.bestcoach.workouttracker.utils.MODEL_HEIGHT
-import com.bestcoach.workouttracker.utils.MODEL_WIDTH
-import com.bestcoach.workouttracker.utils.YuvToRgbConverter
 import org.tensorflow.lite.examples.posenet.lib.Posenet
 import timber.log.Timber
 import java.util.concurrent.ExecutorService
@@ -39,6 +38,7 @@ class CameraFragment : Fragment() {
     private lateinit var posenet: Posenet
     private lateinit var bitmapBuffer: Bitmap
     private lateinit var canvasView: CanvasView
+    private lateinit var tts: TextToSpeech
 
     private var displayId: Int = -1
     private val lensFacing: Int = CameraSelector.LENS_FACING_BACK
@@ -87,6 +87,8 @@ class CameraFragment : Fragment() {
         cameraExecutor.shutdown()
 
         displayManager.unregisterDisplayListener(displayListener)
+
+        tts.stopTTS()
     }
 
 
@@ -111,6 +113,8 @@ class CameraFragment : Fragment() {
         displayManager.registerDisplayListener(displayListener, null)
 
         posenet = Posenet(requireContext())
+
+        tts = TextToSpeech(requireActivity())
 
         // Wait for the views to be properly laid out
         binding.viewFinder.post {
@@ -226,5 +230,13 @@ class CameraFragment : Fragment() {
             Timber.d("Thread name: ${Thread.currentThread().name}")
         }
 
+        val exercise = Exercise(requireContext().getString(R.string.PUSH), person)
+
+        val text = trackExercise(exercise, requireContext())
+
+        if (text.isNotEmpty()) {
+            tts.speakOut(text)
+            Thread.sleep(3000)
+        }
     }
 }
