@@ -6,8 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.hardware.display.DisplayManager
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -227,16 +225,19 @@ class CameraFragment : Fragment() {
         val person = posenet.estimateSinglePose(scaledBitmap)
         activity?.runOnUiThread {
             canvasView.draw(posenet, person, scaledBitmap)
-            Timber.d("Thread name: ${Thread.currentThread().name}")
         }
 
-        val exercise = Exercise(requireContext().getString(R.string.PUSH), person)
+        context?.let { context ->
+            if (!tts.isTTSSpeaking()) {
+                val exercise = Exercise(context.getString(R.string.PUSH), person)
 
-        val text = trackExercise(exercise, requireContext())
+                val text = trackExercise(exercise, context)
 
-        if (text.isNotEmpty()) {
-            tts.speakOut(text)
-            Thread.sleep(3000)
+                if (text.isNotEmpty()) {
+                    tts.speakOut(text)
+                }
+            }
         }
+
     }
 }

@@ -17,9 +17,9 @@ class TextToSpeech(private val activity: Activity) : TextToSpeech.OnInitListener
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Toast.makeText(activity, "This Language is not supported", Toast.LENGTH_SHORT)
                     .show()
-            } else {
-                Toast.makeText(activity, "Initialization Failed!", Toast.LENGTH_SHORT).show()
             }
+        } else {
+            Toast.makeText(activity, "Initialization Failed!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -30,5 +30,9 @@ class TextToSpeech(private val activity: Activity) : TextToSpeech.OnInitListener
     fun stopTTS() {
         tts.stop()
         tts.shutdown()
+    }
+
+    fun isTTSSpeaking(): Boolean {
+        return tts.isSpeaking
     }
 }
