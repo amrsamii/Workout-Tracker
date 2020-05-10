@@ -15,10 +15,10 @@ data class Exercise(
 )
 
 enum class Exercises {
-    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK
+    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK, PIKE_PRESS_UP
 }
 
-private const val ERROR_MARGIN: Double = 15.0
+private const val ERROR_MARGIN: Double = 25.0
 
 private var correctFlag: Int = 0
 
@@ -84,7 +84,7 @@ fun pushExercise(person: Person): String {
         Right_angle_push = 360 - Right_angle_push
     }
 
-    if ((Right_angle_push >= (135 + ERROR_MARGIN) || Right_angle_push <= (135 - ERROR_MARGIN)) || (Left_angle_push >= (135 + ERROR_MARGIN) || Left_angle_push <= (135 - ERROR_MARGIN))) {
+    if ((Right_angle_push >= (135 + ERROR_MARGIN)) || (Left_angle_push >= (135 + ERROR_MARGIN))) {
         correctFlag = 0
         return "Your Elbows should be 45 degree from your body"
 
@@ -172,6 +172,14 @@ fun pullExercise(person: Person): String {
 fun plankExercise(person: Person): String {
     currentExercise = Exercises.PLANK
 
+    val leftKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_KNEE
+    }
+
+    val rightKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_KNEE
+    }
+
     val leftHip: KeyPoint? = person.keyPoints.find {
         it.bodyPart == BodyPart.LEFT_HIP
     }
@@ -188,35 +196,27 @@ fun plankExercise(person: Person): String {
         it.bodyPart == BodyPart.RIGHT_SHOULDER
     }
 
-    val leftAnkle: KeyPoint? = person.keyPoints.find {
-        it.bodyPart == BodyPart.LEFT_ANKLE
-    }
+    val R_hip_R_knee_x = rightHip!!.position.x - rightKnee!!.position.x
 
-    val rightAnkle: KeyPoint? = person.keyPoints.find {
-        it.bodyPart == BodyPart.RIGHT_ANKLE
-    }
-
-    val R_hip_R_ankle_x = rightHip!!.position.x - rightAnkle!!.position.x
-
-    val R_hip_R_ankle_y = rightHip.position.y - rightAnkle.position.y
+    val R_hip_R_knee_y = rightHip.position.y - rightKnee.position.y
 
     val R_hip_R_shoulder_x = rightHip.position.x - rightShoulder!!.position.x
 
     val R_hip_R_shoulder_y = rightHip.position.y - rightShoulder.position.y
 
-    var Right_angle_plank = atan2(R_hip_R_ankle_y.toDouble(), R_hip_R_ankle_x.toDouble()) -
+    var Right_angle_plank = atan2(R_hip_R_knee_y.toDouble(), R_hip_R_knee_x.toDouble()) -
             atan2(R_hip_R_shoulder_y.toDouble(), R_hip_R_shoulder_x.toDouble())
 
-    val L_hip_L_ankle_x = leftHip!!.position.x - leftAnkle!!.position.x
+    val L_hip_L_knee_x = leftHip!!.position.x - leftKnee!!.position.x
 
-    val L_hip_L_ankle_y = leftHip.position.y - leftAnkle.position.y
+    val L_hip_L_knee_y = leftHip.position.y - leftKnee.position.y
 
     val L_hip_L_shoulder_x = leftHip.position.x - leftShoulder!!.position.x
 
     val L_hip_L_shoulder_y = leftHip.position.y - leftShoulder.position.y
 
     var Left_angle_plank = atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
-            atan2(L_hip_L_ankle_y.toDouble(), L_hip_L_ankle_x.toDouble())
+            atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
 
     Left_angle_plank = abs(Left_angle_plank * (180 / kotlin.math.PI))
     Right_angle_plank = abs(Right_angle_plank * (180 / kotlin.math.PI))
@@ -229,11 +229,11 @@ fun plankExercise(person: Person): String {
         Right_angle_plank = 360 - Right_angle_plank
     }
 
-    if (Right_angle_plank > (180 + ERROR_MARGIN) || Left_angle_plank > (180 - ERROR_MARGIN)) {
+    if (Right_angle_plank > (180 + ERROR_MARGIN) || Left_angle_plank > (180 + ERROR_MARGIN)) {
         correctFlag = 0
         return "Lower your HIP"
 
-    } else if (Right_angle_plank < (180 + ERROR_MARGIN) || Left_angle_plank < (180 - ERROR_MARGIN)) {
+    } else if (Right_angle_plank < (180 - ERROR_MARGIN) || Left_angle_plank < (180 - ERROR_MARGIN)) {
         correctFlag = 0
         return "Raise your HIP"
 
@@ -265,28 +265,28 @@ fun sidePlankExercise(person: Person): String {
         it.bodyPart == BodyPart.RIGHT_SHOULDER
     }
 
-    val leftAnkle: KeyPoint? = person.keyPoints.find {
-        it.bodyPart == BodyPart.LEFT_ANKLE
+    val leftKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_KNEE
     }
 
-    val rightAnkle: KeyPoint? = person.keyPoints.find {
-        it.bodyPart == BodyPart.RIGHT_ANKLE
+    val rightKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_KNEE
     }
 
-    val R_hip_R_ankle_x = rightHip!!.position.x - rightAnkle!!.position.x
+    val R_hip_R_knee_x = rightHip!!.position.x - rightKnee!!.position.x
 
-    val R_hip_R_ankle_y = rightHip.position.y - rightAnkle.position.y
+    val R_hip_R_knee_y = rightHip.position.y - rightKnee.position.y
 
     val R_hip_R_shoulder_x = rightHip.position.x - rightShoulder!!.position.x
 
     val R_hip_R_shoulder_y = rightHip.position.y - rightShoulder.position.y
 
-    var Right_angle_side_plank = atan2(R_hip_R_ankle_y.toDouble(), R_hip_R_ankle_x.toDouble()) -
+    var Right_angle_side_plank = atan2(R_hip_R_knee_y.toDouble(), R_hip_R_knee_x.toDouble()) -
             atan2(R_hip_R_shoulder_y.toDouble(), R_hip_R_shoulder_x.toDouble())
 
-    val L_hip_L_ankle_x = leftHip!!.position.x - leftAnkle!!.position.x
+    val L_hip_L_knee_x = leftHip!!.position.x - leftKnee!!.position.x
 
-    val L_hip_L_ankle_y = leftHip.position.y - leftAnkle.position.y
+    val L_hip_L_knee_y = leftHip.position.y - leftKnee.position.y
 
     val L_hip_L_shoulder_x = leftHip.position.x - leftShoulder!!.position.x
 
@@ -294,7 +294,7 @@ fun sidePlankExercise(person: Person): String {
 
     var Left_angle_side_plank =
         atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
-                atan2(L_hip_L_ankle_y.toDouble(), L_hip_L_ankle_x.toDouble())
+                atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
 
     Left_angle_side_plank = abs(Left_angle_side_plank * (180 / kotlin.math.PI))
     Right_angle_side_plank = abs(Right_angle_side_plank * (180 / kotlin.math.PI))
@@ -307,11 +307,11 @@ fun sidePlankExercise(person: Person): String {
         Right_angle_side_plank = 360 - Right_angle_side_plank
     }
 
-    if (Right_angle_side_plank > (180 + ERROR_MARGIN) || Left_angle_side_plank > (180 - ERROR_MARGIN)) {
+    if (Right_angle_side_plank > (180 + ERROR_MARGIN) || Left_angle_side_plank > (180 + ERROR_MARGIN)) {
         correctFlag = 0
         return "Lower your WAIST"
 
-    } else if (Right_angle_side_plank < (180 + ERROR_MARGIN) || Left_angle_side_plank < (180 - ERROR_MARGIN)) {
+    } else if (Right_angle_side_plank < (180 - ERROR_MARGIN) || Left_angle_side_plank < (180 - ERROR_MARGIN)) {
         correctFlag = 0
         return "Raise your WAIST"
 
@@ -322,6 +322,82 @@ fun sidePlankExercise(person: Person): String {
     } else {
         return ""
     }
+}
+
+fun pikePressUpExercise(person: Person): String {
+    val leftHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_HIP
+    }
+
+    val rightHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_HIP
+    }
+    val leftKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_KNEE
+    }
+
+    val rightKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_KNEE
+    }
+
+    val rightElbow: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_ELBOW
+    }
+
+    val leftElbow: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_ELBOW
+    }
+
+    val R_hip_R_knee_x = rightHip!!.position.x - rightKnee!!.position.x
+
+    val R_hip_R_knee_y = rightHip.position.y - rightKnee.position.y
+
+    val R_hip_R_elbow_x = rightHip.position.x - rightElbow!!.position.x
+
+    val R_hip_R_elbow_y = rightHip.position.y - rightElbow.position.y
+
+    var Right_angle_pike_press_up = atan2(R_hip_R_knee_y.toDouble(), R_hip_R_knee_x.toDouble()) -
+            atan2(R_hip_R_elbow_y.toDouble(), R_hip_R_elbow_x.toDouble())
+
+    val L_hip_L_knee_x = leftHip!!.position.x - leftKnee!!.position.x
+
+    val L_hip_L_knee_y = leftHip.position.y - leftKnee.position.y
+
+    val L_hip_L_elbow_x = leftHip.position.x - leftElbow!!.position.x
+
+    val L_hip_L_elbow_y = leftHip.position.y - leftElbow.position.y
+
+    var Left_angle_pike_press_up =
+        atan2(L_hip_L_elbow_y.toDouble(), L_hip_L_elbow_x.toDouble()) -
+                atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
+
+    Left_angle_pike_press_up = abs(Left_angle_pike_press_up * (180 / kotlin.math.PI))
+    Right_angle_pike_press_up = abs(Right_angle_pike_press_up * (180 / kotlin.math.PI))
+
+    if (Left_angle_pike_press_up > 180) {
+        Left_angle_pike_press_up = 360 - Left_angle_pike_press_up
+    }
+
+    if (Right_angle_pike_press_up > 180) {
+        Right_angle_pike_press_up = 360 - Right_angle_pike_press_up
+    }
+
+    if (Right_angle_pike_press_up > (90 + ERROR_MARGIN) || Left_angle_pike_press_up > (90 + ERROR_MARGIN)) {
+        correctFlag = 0
+        return "Raise your HIP"
+
+    } else if (Right_angle_pike_press_up < (90 - ERROR_MARGIN) || Left_angle_pike_press_up < (90 - ERROR_MARGIN)) {
+        correctFlag = 0
+        return "Lower your HIP"
+
+    } else if (correctFlag == 0) {
+        correctFlag = 1
+        return "You are correct"
+
+    } else {
+        return ""
+    }
+
 }
 
 fun trackExercise(exercise: Exercise, context: Context): String {
@@ -349,6 +425,11 @@ fun trackExercise(exercise: Exercise, context: Context): String {
             context.getString(R.string.SIDE_PLANK) -> {
                 if (currentExercise != Exercises.SIDE_PLANK) correctFlag = 0
                 status = sidePlankExercise(exercise.person)
+            }
+
+            context.getString(R.string.PIKE_PRESS_UP) -> {
+                if (currentExercise != Exercises.PIKE_PRESS_UP) correctFlag = 0
+                status = pikePressUpExercise(exercise.person)
             }
 
         }
