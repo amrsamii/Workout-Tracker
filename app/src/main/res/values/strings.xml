@@ -5,15 +5,17 @@
     <string name="PULL">pull</string>
     <string name="PLANK">plank</string>
     <string name="SIDE_PLANK">sidePlank</string>
-  <string name="selected_item">Selected item:</string>
-  <string name="welcome_to_workout_tracker">Welcome to Workout Tracker</string>
-  <string name="select_exercise">Please Select Exercise Type :-</string>
-  <string name="start">Start</string>
-  <string name="workout_trainer_logo">Workout Trainer Logo</string>
-  <string-array name="Exercises">
-    <item>Push-Ups</item>
-    <item>Pull-Ups</item>
-    <item>Plank</item>
-    <item>Side Plank</item>
-  </string-array>
+    <string name="PIKE_PRESS_UP">pikePressUp</string>
+    <string name="selected_item">Selected item:</string>
+    <string name="welcome_to_workout_tracker">Welcome to Workout Tracker</string>
+    <string name="select_exercise">Please Select Exercise Type :-</string>
+    <string name="start">Start</string>
+    <string name="workout_trainer_logo">Workout Trainer Logo</string>
+    <string-array name="Exercises">
+        <item>Push-Ups</item>
+        <item>Pull-Ups</item>
+        <item>Plank</item>
+        <item>Side Plank</item>
+        <item>Pike Press Up</item>
+    </string-array>
 </resources>
