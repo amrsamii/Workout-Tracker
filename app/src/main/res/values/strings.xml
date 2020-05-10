@@ -6,6 +6,7 @@
     <string name="PLANK">plank</string>
     <string name="SIDE_PLANK">sidePlank</string>
     <string name="PIKE_PRESS_UP">pikePressUp</string>
+    <string name="WALL_SIT">wallSit</string>
     <string name="selected_item">Selected item:</string>
     <string name="welcome_to_workout_tracker">Welcome to Workout Tracker</string>
     <string name="select_exercise">Please Select Exercise Type :-</string>
@@ -17,5 +18,6 @@
         <item>Plank</item>
         <item>Side Plank</item>
         <item>Pike Press Up</item>
+        <item>Wall Sit</item>
     </string-array>
 </resources>

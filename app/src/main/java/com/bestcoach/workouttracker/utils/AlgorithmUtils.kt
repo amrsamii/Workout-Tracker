@@ -15,7 +15,7 @@ data class Exercise(
 )
 
 enum class Exercises {
-    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK, PIKE_PRESS_UP
+    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK, PIKE_PRESS_UP, WALL_SIT
 }
 
 private const val ERROR_MARGIN: Double = 25.0
@@ -400,6 +400,85 @@ fun pikePressUpExercise(person: Person): String {
 
 }
 
+fun wallSitExercise(person: Person): String {
+    currentExercise = Exercises.WALL_SIT
+
+    val leftHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_HIP
+    }
+
+    val rightHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_HIP
+    }
+
+    val leftShoulder: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_SHOULDER
+    }
+
+    val rightShoulder: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_SHOULDER
+    }
+
+    val leftKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_KNEE
+    }
+
+    val rightKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_KNEE
+    }
+
+    val R_hip_R_knee_x = rightHip!!.position.x - rightKnee!!.position.x
+
+    val R_hip_R_knee_y = rightHip.position.y - rightKnee.position.y
+
+    val R_hip_R_shoulder_x = rightHip.position.x - rightShoulder!!.position.x
+
+    val R_hip_R_shoulder_y = rightHip.position.y - rightShoulder.position.y
+
+    var Right_angle_wall_sit = atan2(R_hip_R_knee_y.toDouble(), R_hip_R_knee_x.toDouble()) -
+            atan2(R_hip_R_shoulder_y.toDouble(), R_hip_R_shoulder_x.toDouble())
+
+    val L_hip_L_knee_x = leftHip!!.position.x - leftKnee!!.position.x
+
+    val L_hip_L_knee_y = leftHip.position.y - leftKnee.position.y
+
+    val L_hip_L_shoulder_x = leftHip.position.x - leftShoulder!!.position.x
+
+    val L_hip_L_shoulder_y = leftHip.position.y - leftShoulder.position.y
+
+    var Left_angle_wall_sit =
+        atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
+                atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
+
+    Left_angle_wall_sit = abs(Left_angle_wall_sit * (180 / kotlin.math.PI))
+    Right_angle_wall_sit = abs(Right_angle_wall_sit * (180 / kotlin.math.PI))
+
+    if (Left_angle_wall_sit > 180) {
+        Left_angle_wall_sit = 360 - Left_angle_wall_sit
+    }
+
+    if (Right_angle_wall_sit > 180) {
+        Right_angle_wall_sit = 360 - Right_angle_wall_sit
+    }
+
+    if (Right_angle_wall_sit > (90 + ERROR_MARGIN / 2) || Left_angle_wall_sit > (90 + ERROR_MARGIN / 2)) {
+        correctFlag = 0
+        return "Lower your HIP"
+
+    } else if (Right_angle_wall_sit < (90 - ERROR_MARGIN / 2) || Left_angle_wall_sit < (90 - ERROR_MARGIN / 2)) {
+        correctFlag = 0
+        return "Raise your HIP"
+
+    } else if (correctFlag == 0) {
+        correctFlag = 1
+        return "You are correct"
+
+    } else {
+        return ""
+    }
+}
+
+
 fun trackExercise(exercise: Exercise, context: Context): String {
 
     var status = ""
@@ -432,8 +511,12 @@ fun trackExercise(exercise: Exercise, context: Context): String {
                 status = pikePressUpExercise(exercise.person)
             }
 
+            context.getString(R.string.WALL_SIT) -> {
+                if (currentExercise != Exercises.WALL_SIT) correctFlag = 0
+                status = wallSitExercise(exercise.person)
+            }
+
         }
     }
-
     return status
 }
