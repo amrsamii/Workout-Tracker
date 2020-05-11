@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Workout Tracker</string>
-    <string name="PUSH">push</string>
-    <string name="PULL">pull</string>
-    <string name="PLANK">plank</string>
-    <string name="SIDE_PLANK">sidePlank</string>
-    <string name="PIKE_PRESS_UP">pikePressUp</string>
-    <string name="WALL_SIT">wallSit</string>
-    <string name="STRAIGHT_BRIDGE">straightBridge</string>
+
+    <string name="STRAIGHT_BRIDGE">Straight Bridge</string>
+    <string name="PUSH">Push-Ups</string>
+    <string name="PULL">Pull-Ups</string>
+    <string name="PLANK">Plank</string>
+    <string name="SIDE_PLANK">Side Plank</string>
+    <string name="PIKE_PRESS_UP">Pike Press Up</string>
+    <string name="WALL_SIT">Wall Sit</string>
+    <string name="NINETY_DEGREE_STATIC_PRESS">90° Static Press</string>
+
     <string name="selected_item">Selected item:</string>
     <string name="welcome_to_workout_tracker">Welcome to Workout Tracker</string>
     <string name="select_exercise">Please Select Exercise Type :-</string>
     <string name="start">Start</string>
     <string name="workout_trainer_logo">Workout Trainer Logo</string>
-    <string name="NINTY_DEGREE_STATIC_PRESS">nintyDegreeStaticPress</string>
+
     <string-array name="Exercises">
         <item>Push-Ups</item>
         <item>Pull-Ups</item>

@@ -18,6 +18,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bestcoach.workouttracker.R
 import com.bestcoach.workouttracker.databinding.FragmentCameraBinding
 import com.bestcoach.workouttracker.ui.CanvasView
@@ -43,7 +44,7 @@ class CameraFragment : Fragment() {
     private var preview: Preview? = null
     private var imageAnalyzer: ImageAnalysis? = null
     private var camera: Camera? = null
-
+    private val args: CameraFragmentArgs by navArgs()
     /** A counter to keep count of total frames.  */
     private var frameCounter = 0
 
@@ -229,7 +230,7 @@ class CameraFragment : Fragment() {
 
         context?.let { context ->
             if (!tts.isTTSSpeaking()) {
-                val exercise = Exercise(context.getString(R.string.PUSH), person)
+                val exercise = Exercise(args.exerciseType, person)
 
                 val text = trackExercise(exercise, context)
 
