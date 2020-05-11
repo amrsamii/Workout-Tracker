@@ -7,12 +7,13 @@
     <string name="SIDE_PLANK">sidePlank</string>
     <string name="PIKE_PRESS_UP">pikePressUp</string>
     <string name="WALL_SIT">wallSit</string>
+    <string name="STRAIGHT_BRIDGE">straightBridge</string>
     <string name="selected_item">Selected item:</string>
     <string name="welcome_to_workout_tracker">Welcome to Workout Tracker</string>
     <string name="select_exercise">Please Select Exercise Type :-</string>
     <string name="start">Start</string>
     <string name="workout_trainer_logo">Workout Trainer Logo</string>
-    <string name="STRAIGHT_BRIDGE">straight bridge</string>
+    <string name="NINTY_DEGREE_STATIC_PRESS">nintyDegreeStaticPress</string>
     <string-array name="Exercises">
         <item>Push-Ups</item>
         <item>Pull-Ups</item>
@@ -21,5 +22,6 @@
         <item>Pike Press Up</item>
         <item>Wall Sit</item>
         <item>Straight Bridge</item>
+        <item>90° Static Press</item>
     </string-array>
 </resources>
