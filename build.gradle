@@ -6,6 +6,7 @@ buildscript {
         navigation_version = '2.2.2'
         camerax_version = "1.0.0-beta03"
         timber_version = "4.7.1"
+        material_version = '1.2.0-alpha06'
     }
     repositories {
         google()

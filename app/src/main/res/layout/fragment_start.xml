@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-            <variable
-                name="viewmodel"
-                type="com.bestcoach.workouttracker.ui.start.StartViewModel" />
+
+        <variable
+            name="viewmodel"
+            type="com.bestcoach.workouttracker.ui.start.StartViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,76 +16,77 @@
         android:background="@drawable/background">
 
         <ImageView
-            android:id="@+id/Logo"
-            android:layout_width="231dp"
-            android:layout_height="232dp"
+            android:id="@+id/logo_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/workout_trainer_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher" />
+            app:srcCompat="@drawable/ic_logo" />
 
         <TextView
-            android:id="@+id/Welcome"
+            android:id="@+id/exercise_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/aclonica"
-            android:text="@string/welcome_to_workout_tracker"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/spinner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Logo"
-            app:layout_constraintVertical_bias="0.047" />
-
-        <TextView
-            android:id="@+id/ExerciseType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:fontFamily="@font/aclonica"
-            android:paddingEnd="30dp"
+            android:layout_marginTop="48dp"
             android:text="@string/select_exercise"
-            android:textColor="@android:color/background_dark"
+            android:textColor="?attr/colorOnSecondary"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/spinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Welcome"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@id/logo_image" />
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="250sp"
+        <RelativeLayout
+            android:id="@+id/workout_layout"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="350dp"
-            android:layout_marginEnd="80dp"
-            android:alpha="1"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dialog"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/startButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_marginTop="16dp"
+            android:background="@drawable/spinner_background"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/exercise_text"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/exercise_text"
+            app:layout_constraintTop_toBottomOf="@+id/exercise_text">
+
+            <Spinner
+                android:id="@+id/workout_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_down" />
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/startButton"
-            android:layout_marginStart="100sp"
-            android:layout_marginEnd="100sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:onClick="@{() -> viewmodel.onStartClicked()}"
             android:text="@string/start"
+            android:textAllCaps="false"
             android:textSize="26sp"
+            app:cornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> viewmodel.onStartClicked()}"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/workout_layout"
+            app:layout_constraintVertical_bias="0.26" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
