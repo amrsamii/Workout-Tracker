@@ -15,7 +15,7 @@ data class Exercise(
 )
 
 enum class Exercises {
-    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK, PIKE_PRESS_UP, WALL_SIT
+    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK, PIKE_PRESS_UP, WALL_SIT, STRAIGHT_BRIDGE
 }
 
 private const val ERROR_MARGIN: Double = 25.0
@@ -478,6 +478,83 @@ fun wallSitExercise(person: Person): String {
     }
 }
 
+fun straightBridgeExercise(person: Person): String {
+    currentExercise = Exercises.STRAIGHT_BRIDGE
+
+    val leftKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_KNEE
+    }
+
+    val rightKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_KNEE
+    }
+
+    val leftHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_HIP
+    }
+
+    val rightHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_HIP
+    }
+
+    val leftShoulder: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_SHOULDER
+    }
+
+    val rightShoulder: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_SHOULDER
+    }
+
+    val R_hip_R_knee_x = rightHip!!.position.x - rightKnee!!.position.x
+
+    val R_hip_R_knee_y = rightHip.position.y - rightKnee.position.y
+
+    val R_hip_R_shoulder_x = rightHip.position.x - rightShoulder!!.position.x
+
+    val R_hip_R_shoulder_y = rightHip.position.y - rightShoulder.position.y
+
+    var Right_angle_straight_bridge = atan2(R_hip_R_knee_y.toDouble(), R_hip_R_knee_x.toDouble()) -
+            atan2(R_hip_R_shoulder_y.toDouble(), R_hip_R_shoulder_x.toDouble())
+
+    val L_hip_L_knee_x = leftHip!!.position.x - leftKnee!!.position.x
+
+    val L_hip_L_knee_y = leftHip.position.y - leftKnee.position.y
+
+    val L_hip_L_shoulder_x = leftHip.position.x - leftShoulder!!.position.x
+
+    val L_hip_L_shoulder_y = leftHip.position.y - leftShoulder.position.y
+
+    var Left_angle_straight_bridge = atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
+            atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
+
+    Left_angle_straight_bridge = abs(Left_angle_straight_bridge * (180 / kotlin.math.PI))
+    Right_angle_straight_bridge = abs(Right_angle_straight_bridge * (180 / kotlin.math.PI))
+
+    if (Left_angle_straight_bridge > 180) {
+        Left_angle_straight_bridge = 360 - Left_angle_straight_bridge
+    }
+
+    if (Right_angle_straight_bridge > 180) {
+        Right_angle_straight_bridge = 360 - Right_angle_straight_bridge
+    }
+
+    if (Right_angle_straight_bridge > (180 + ERROR_MARGIN) || Left_angle_straight_bridge > (180 + ERROR_MARGIN)) {
+        correctFlag = 0
+        return "Raise your HIP"
+
+    } else if (Right_angle_straight_bridge < (180 - ERROR_MARGIN) || Left_angle_straight_bridge < (180 - ERROR_MARGIN)) {
+        correctFlag = 0
+        return "Lower your HIP"
+
+    } else if (correctFlag == 0) {
+        correctFlag = 1
+        return "You are correct"
+
+    } else {
+        return ""
+    }
+}
+
 
 fun trackExercise(exercise: Exercise, context: Context): String {
 
@@ -514,6 +591,11 @@ fun trackExercise(exercise: Exercise, context: Context): String {
             context.getString(R.string.WALL_SIT) -> {
                 if (currentExercise != Exercises.WALL_SIT) correctFlag = 0
                 status = wallSitExercise(exercise.person)
+            }
+
+            context.getString(R.string.STRAIGHT_BRIDGE) -> {
+                if (currentExercise != Exercises.STRAIGHT_BRIDGE) correctFlag = 0
+                status = straightBridgeExercise(exercise.person)
             }
 
         }
