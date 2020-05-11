@@ -675,7 +675,7 @@ fun trackExercise(exercise: Exercise, context: Context): String {
                 status = straightBridgeExercise(exercise.person)
             }
 
-            context.getString(R.string.NINTY_DEGREE_STATIC_PRESS) -> {
+            context.getString(R.string.NINETY_DEGREE_STATIC_PRESS) -> {
                 if (currentExercise != Exercises.NINTY_DEGREE_STATIC_PRESS) correctFlag = 0
                 status = nintyDegreeStaticPressExercise(exercise.person)
             }
