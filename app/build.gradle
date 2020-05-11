@@ -87,4 +87,7 @@ dependencies {
 
     // Tensorflow library for Android
     implementation 'org.tensorflow:tensorflow-lite:2.1.0'
+
+    // Material design components
+    implementation "com.google.android.material:material:$material_version"
 }
