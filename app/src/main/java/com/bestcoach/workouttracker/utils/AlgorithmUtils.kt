@@ -15,7 +15,7 @@ data class Exercise(
 )
 
 enum class Exercises {
-    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK, PIKE_PRESS_UP, WALL_SIT, STRAIGHT_BRIDGE
+    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK, PIKE_PRESS_UP, WALL_SIT, STRAIGHT_BRIDGE, NINTY_DEGREE_STATIC_PRESS
 }
 
 private const val ERROR_MARGIN: Double = 25.0
@@ -555,6 +555,83 @@ fun straightBridgeExercise(person: Person): String {
     }
 }
 
+fun nintyDegreeStaticPressExercise(person: Person): String {
+    currentExercise = Exercises.NINTY_DEGREE_STATIC_PRESS
+
+    val leftHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_HIP
+    }
+
+    val rightHip: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_HIP
+    }
+
+    val leftShoulder: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_SHOULDER
+    }
+
+    val rightShoulder: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_SHOULDER
+    }
+
+    val leftKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.LEFT_KNEE
+    }
+
+    val rightKnee: KeyPoint? = person.keyPoints.find {
+        it.bodyPart == BodyPart.RIGHT_KNEE
+    }
+
+    val R_hip_R_knee_x = rightHip!!.position.x - rightKnee!!.position.x
+
+    val R_hip_R_knee_y = rightHip.position.y - rightKnee.position.y
+
+    val R_hip_R_shoulder_x = rightHip.position.x - rightShoulder!!.position.x
+
+    val R_hip_R_shoulder_y = rightHip.position.y - rightShoulder.position.y
+
+    var Right_angle_90_degree_static_press = atan2(R_hip_R_knee_y.toDouble(), R_hip_R_knee_x.toDouble()) -
+            atan2(R_hip_R_shoulder_y.toDouble(), R_hip_R_shoulder_x.toDouble())
+
+    val L_hip_L_knee_x = leftHip!!.position.x - leftKnee!!.position.x
+
+    val L_hip_L_knee_y = leftHip.position.y - leftKnee.position.y
+
+    val L_hip_L_shoulder_x = leftHip.position.x - leftShoulder!!.position.x
+
+    val L_hip_L_shoulder_y = leftHip.position.y - leftShoulder.position.y
+
+    var Left_angle_90_degree_static_press =
+        atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
+                atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
+
+    Left_angle_90_degree_static_press = abs(Left_angle_90_degree_static_press * (180 / kotlin.math.PI))
+    Right_angle_90_degree_static_press = abs(Right_angle_90_degree_static_press * (180 / kotlin.math.PI))
+
+    if (Left_angle_90_degree_static_press > 180) {
+        Left_angle_90_degree_static_press = 360 - Left_angle_90_degree_static_press
+    }
+
+    if (Right_angle_90_degree_static_press > 180) {
+        Right_angle_90_degree_static_press = 360 - Right_angle_90_degree_static_press
+    }
+
+    if (Right_angle_90_degree_static_press > (90 + ERROR_MARGIN ) || Left_angle_90_degree_static_press > (90 + ERROR_MARGIN )) {
+        correctFlag = 0
+        return "Move your knees closer to your chest"
+
+    } else if (Right_angle_90_degree_static_press < (90 - ERROR_MARGIN ) || Left_angle_90_degree_static_press < (90 - ERROR_MARGIN)) {
+        correctFlag = 0
+        return "Move your knees away from your chest"
+
+    } else if (correctFlag == 0) {
+        correctFlag = 1
+        return "You are correct"
+
+    } else {
+        return ""
+    }
+}
 
 fun trackExercise(exercise: Exercise, context: Context): String {
 
@@ -596,6 +673,11 @@ fun trackExercise(exercise: Exercise, context: Context): String {
             context.getString(R.string.STRAIGHT_BRIDGE) -> {
                 if (currentExercise != Exercises.STRAIGHT_BRIDGE) correctFlag = 0
                 status = straightBridgeExercise(exercise.person)
+            }
+
+            context.getString(R.string.NINTY_DEGREE_STATIC_PRESS) -> {
+                if (currentExercise != Exercises.NINTY_DEGREE_STATIC_PRESS) correctFlag = 0
+                status = nintyDegreeStaticPressExercise(exercise.person)
             }
 
         }
