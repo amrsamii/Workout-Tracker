@@ -19,6 +19,7 @@ enum class Exercises {
 }
 
 private const val ERROR_MARGIN: Double = 25.0
+private const val WALL_SIT_ERROR_MARGIN: Double = 10.0
 
 private var correctFlag: Int = 0
 
@@ -461,11 +462,11 @@ fun wallSitExercise(person: Person): String {
         Right_angle_wall_sit = 360 - Right_angle_wall_sit
     }
 
-    if (Right_angle_wall_sit > (90 + ERROR_MARGIN / 2) || Left_angle_wall_sit > (90 + ERROR_MARGIN / 2)) {
+    if (Right_angle_wall_sit > (90 + WALL_SIT_ERROR_MARGIN) || Left_angle_wall_sit > (90 + WALL_SIT_ERROR_MARGIN)) {
         correctFlag = 0
         return "Lower your HIP"
 
-    } else if (Right_angle_wall_sit < (90 - ERROR_MARGIN / 2) || Left_angle_wall_sit < (90 - ERROR_MARGIN / 2)) {
+    } else if (Right_angle_wall_sit < (90 - WALL_SIT_ERROR_MARGIN) || Left_angle_wall_sit < (90 - WALL_SIT_ERROR_MARGIN)) {
         correctFlag = 0
         return "Raise your HIP"
 
