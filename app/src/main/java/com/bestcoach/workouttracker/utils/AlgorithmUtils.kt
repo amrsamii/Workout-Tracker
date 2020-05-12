@@ -219,23 +219,16 @@ fun plankExercise(person: Person): String {
             atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
 
     Left_angle_plank = abs(Left_angle_plank * (180 / kotlin.math.PI))
+
     Right_angle_plank = abs(Right_angle_plank * (180 / kotlin.math.PI))
-
-    if (Left_angle_plank > 180) {
-        Left_angle_plank = 360 - Left_angle_plank
-    }
-
-    if (Right_angle_plank > 180) {
-        Right_angle_plank = 360 - Right_angle_plank
-    }
 
     if (Right_angle_plank > (180 + ERROR_MARGIN) || Left_angle_plank > (180 + ERROR_MARGIN)) {
         correctFlag = 0
-        return "Lower your HIP"
+        return "Raise your HIP"
 
     } else if (Right_angle_plank < (180 - ERROR_MARGIN) || Left_angle_plank < (180 - ERROR_MARGIN)) {
         correctFlag = 0
-        return "Raise your HIP"
+        return "Lower your HIP"
 
     } else if (correctFlag == 0) {
         correctFlag = 1
@@ -245,6 +238,7 @@ fun plankExercise(person: Person): String {
         return ""
     }
 }
+
 
 fun sidePlankExercise(person: Person): String {
     currentExercise = Exercises.SIDE_PLANK
