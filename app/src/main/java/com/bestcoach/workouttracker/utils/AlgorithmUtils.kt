@@ -287,27 +287,20 @@ fun sidePlankExercise(person: Person): String {
     val L_hip_L_shoulder_y = leftHip.position.y - leftShoulder.position.y
 
     var Left_angle_side_plank =
-        atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
-                atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
+            atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
+                    atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
 
     Left_angle_side_plank = abs(Left_angle_side_plank * (180 / kotlin.math.PI))
+
     Right_angle_side_plank = abs(Right_angle_side_plank * (180 / kotlin.math.PI))
-
-    if (Left_angle_side_plank > 180) {
-        Left_angle_side_plank = 360 - Left_angle_side_plank
-    }
-
-    if (Right_angle_side_plank > 180) {
-        Right_angle_side_plank = 360 - Right_angle_side_plank
-    }
-
+    
     if (Right_angle_side_plank > (180 + ERROR_MARGIN) || Left_angle_side_plank > (180 + ERROR_MARGIN)) {
         correctFlag = 0
-        return "Lower your WAIST"
+        return "Raise your WAIST"
 
     } else if (Right_angle_side_plank < (180 - ERROR_MARGIN) || Left_angle_side_plank < (180 - ERROR_MARGIN)) {
         correctFlag = 0
-        return "Raise your WAIST"
+        return "Lower your WAIST"
 
     } else if (correctFlag == 0) {
         correctFlag = 1
