@@ -15,6 +15,8 @@
     <string name="welcome_to_workout_tracker">Welcome to Workout Tracker</string>
     <string name="select_exercise">Please Select Exercise Type :-</string>
     <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="open">Open Camera</string>
     <string name="workout_trainer_logo">Workout Trainer Logo</string>
 
     <string-array name="Exercises">

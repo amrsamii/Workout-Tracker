@@ -121,24 +121,5 @@ class CanvasView(context: Context) : View(context) {
                 )
             }
         }
-
-        canvas.drawText(
-            "Score: %.2f".format(person.score),
-            (15.0f * widthRatio),
-            (30.0f * heightRatio + bottom),
-            paint
-        )
-        canvas.drawText(
-            "Device: %s".format(posenet.device),
-            (15.0f * widthRatio),
-            (50.0f * heightRatio + bottom),
-            paint
-        )
-        canvas.drawText(
-            "Time: %.2f ms".format(posenet.lastInferenceTimeNanos * 1.0f / 1_000_000),
-            (15.0f * widthRatio),
-            (70.0f * heightRatio + bottom),
-            paint
-        )
     }
 }

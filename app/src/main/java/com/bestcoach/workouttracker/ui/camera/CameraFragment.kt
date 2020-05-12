@@ -17,6 +17,8 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bestcoach.workouttracker.R
@@ -45,6 +47,7 @@ class CameraFragment : Fragment() {
     private var imageAnalyzer: ImageAnalysis? = null
     private var camera: Camera? = null
     private val args: CameraFragmentArgs by navArgs()
+    private val viewModel by viewModels<CameraViewModel> { defaultViewModelProviderFactory }
     /** A counter to keep count of total frames.  */
     private var frameCounter = 0
 
@@ -95,7 +98,11 @@ class CameraFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCameraBinding.inflate(inflater, container, false)
+        binding = FragmentCameraBinding.inflate(inflater, container, false).apply {
+            viewmodel = viewModel
+        }
+        binding.lifecycleOwner = this.viewLifecycleOwner
+
         return binding.root
     }
 
@@ -191,7 +198,8 @@ class CameraFragment : Fragment() {
                         // Process an image for analysis in every 3 frames.
                         frameCounter = (frameCounter + 1) % 3
                         if (frameCounter == 0) {
-                            processImage(rotatedBitmap)
+                            if (viewModel.startButtonString.value == getString(R.string.stop))
+                                processImage(rotatedBitmap)
                         }
                     })
                 }
