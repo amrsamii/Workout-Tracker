@@ -72,13 +72,13 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/startButton"
+            android:id="@+id/openButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
             android:onClick="@{() -> viewmodel.onStartClicked()}"
-            android:text="@string/start"
+            android:text="@string/open"
             android:textAllCaps="false"
             android:textSize="26sp"
             app:cornerRadius="16dp"
