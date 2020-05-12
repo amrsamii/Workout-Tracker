@@ -48,6 +48,7 @@ class CameraFragment : Fragment() {
     private var camera: Camera? = null
     private val args: CameraFragmentArgs by navArgs()
     private val viewModel by viewModels<CameraViewModel> { defaultViewModelProviderFactory }
+
     /** A counter to keep count of total frames.  */
     private var frameCounter = 0
 
@@ -100,6 +101,7 @@ class CameraFragment : Fragment() {
     ): View? {
         binding = FragmentCameraBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
+            currentExercise = args.exerciseType
         }
         binding.lifecycleOwner = this.viewLifecycleOwner
 
@@ -130,6 +132,14 @@ class CameraFragment : Fragment() {
 
             // Bind use cases
             bindCameraUseCases()
+        }
+
+        viewModel.startButtonString.observe(viewLifecycleOwner) { currentText ->
+            if (currentText == getString(R.string.stop)) {
+                tts.speakOut(getString(R.string.start_pressed, args.exerciseType))
+            } else {
+                tts.speakOut(getString(R.string.stop_pressed, args.exerciseType))
+            }
         }
     }
 

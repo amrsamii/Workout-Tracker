@@ -61,11 +61,11 @@ class CanvasView(context: Context) : View(context) {
         this.posenet = posenet
         this.person = person
         this.bitmap = bitmap
+        // force the view to draw from scratch
         invalidate()
     }
 
     private fun drawPerson(canvas: Canvas) {
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
         // Draw `bitmap` and `person` in square canvas.
         val screenWidth: Int
         val screenHeight: Int
