@@ -11,6 +11,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.bestcoach.workouttracker.R
 import com.bestcoach.workouttracker.databinding.FragmentStartBinding
+import com.bestcoach.workouttracker.ui.permissions.PermissionsFragment
 
 class StartFragment : Fragment() {
     private lateinit var binding: FragmentStartBinding
@@ -46,5 +47,14 @@ class StartFragment : Fragment() {
             }
         }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Make sure that all permissions are still present, since the
+        // user could have removed them while the app was in paused state.
+        if (!PermissionsFragment.hasPermissions(requireContext())) {
+            findNavController().navigate(StartFragmentDirections.actionStartFragmentToPermissionsFragment())
+        }
     }
 }
