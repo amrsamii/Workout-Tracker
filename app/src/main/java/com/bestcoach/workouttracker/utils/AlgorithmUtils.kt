@@ -19,6 +19,7 @@ enum class Exercises {
 }
 
 private const val ERROR_MARGIN: Double = 25.0
+private const val WALL_SIT_ERROR_MARGIN: Double = 10.0
 
 private var correctFlag: Int = 0
 
@@ -287,13 +288,13 @@ fun sidePlankExercise(person: Person): String {
     val L_hip_L_shoulder_y = leftHip.position.y - leftShoulder.position.y
 
     var Left_angle_side_plank =
-            atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
-                    atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
+        atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
+                atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
 
     Left_angle_side_plank = abs(Left_angle_side_plank * (180 / kotlin.math.PI))
 
     Right_angle_side_plank = abs(Right_angle_side_plank * (180 / kotlin.math.PI))
-    
+
     if (Right_angle_side_plank > (180 + ERROR_MARGIN) || Left_angle_side_plank > (180 + ERROR_MARGIN)) {
         correctFlag = 0
         return "Raise your WAIST"
@@ -448,11 +449,11 @@ fun wallSitExercise(person: Person): String {
         Right_angle_wall_sit = 360 - Right_angle_wall_sit
     }
 
-    if (Right_angle_wall_sit > (90 + ERROR_MARGIN / 2) || Left_angle_wall_sit > (90 + ERROR_MARGIN / 2)) {
+    if (Right_angle_wall_sit > (90 + WALL_SIT_ERROR_MARGIN) || Left_angle_wall_sit > (90 + WALL_SIT_ERROR_MARGIN)) {
         correctFlag = 0
         return "Lower your HIP"
 
-    } else if (Right_angle_wall_sit < (90 - ERROR_MARGIN / 2) || Left_angle_wall_sit < (90 - ERROR_MARGIN / 2)) {
+    } else if (Right_angle_wall_sit < (90 - WALL_SIT_ERROR_MARGIN) || Left_angle_wall_sit < (90 - WALL_SIT_ERROR_MARGIN)) {
         correctFlag = 0
         return "Raise your HIP"
 
@@ -511,8 +512,9 @@ fun straightBridgeExercise(person: Person): String {
 
     val L_hip_L_shoulder_y = leftHip.position.y - leftShoulder.position.y
 
-    var Left_angle_straight_bridge = atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
-            atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
+    var Left_angle_straight_bridge =
+        atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
+                atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
 
     Left_angle_straight_bridge = abs(Left_angle_straight_bridge * (180 / kotlin.math.PI))
     Right_angle_straight_bridge = abs(Right_angle_straight_bridge * (180 / kotlin.math.PI))
@@ -577,8 +579,9 @@ fun nintyDegreeStaticPressExercise(person: Person): String {
 
     val R_hip_R_shoulder_y = rightHip.position.y - rightShoulder.position.y
 
-    var Right_angle_90_degree_static_press = atan2(R_hip_R_knee_y.toDouble(), R_hip_R_knee_x.toDouble()) -
-            atan2(R_hip_R_shoulder_y.toDouble(), R_hip_R_shoulder_x.toDouble())
+    var Right_angle_90_degree_static_press =
+        atan2(R_hip_R_knee_y.toDouble(), R_hip_R_knee_x.toDouble()) -
+                atan2(R_hip_R_shoulder_y.toDouble(), R_hip_R_shoulder_x.toDouble())
 
     val L_hip_L_knee_x = leftHip!!.position.x - leftKnee!!.position.x
 
@@ -592,8 +595,10 @@ fun nintyDegreeStaticPressExercise(person: Person): String {
         atan2(L_hip_L_shoulder_y.toDouble(), L_hip_L_shoulder_x.toDouble()) -
                 atan2(L_hip_L_knee_y.toDouble(), L_hip_L_knee_x.toDouble())
 
-    Left_angle_90_degree_static_press = abs(Left_angle_90_degree_static_press * (180 / kotlin.math.PI))
-    Right_angle_90_degree_static_press = abs(Right_angle_90_degree_static_press * (180 / kotlin.math.PI))
+    Left_angle_90_degree_static_press =
+        abs(Left_angle_90_degree_static_press * (180 / kotlin.math.PI))
+    Right_angle_90_degree_static_press =
+        abs(Right_angle_90_degree_static_press * (180 / kotlin.math.PI))
 
     if (Left_angle_90_degree_static_press > 180) {
         Left_angle_90_degree_static_press = 360 - Left_angle_90_degree_static_press
@@ -603,11 +608,11 @@ fun nintyDegreeStaticPressExercise(person: Person): String {
         Right_angle_90_degree_static_press = 360 - Right_angle_90_degree_static_press
     }
 
-    if (Right_angle_90_degree_static_press > (90 + ERROR_MARGIN ) || Left_angle_90_degree_static_press > (90 + ERROR_MARGIN )) {
+    if (Right_angle_90_degree_static_press > (90 + ERROR_MARGIN) || Left_angle_90_degree_static_press > (90 + ERROR_MARGIN)) {
         correctFlag = 0
         return "Move your knees closer to your chest"
 
-    } else if (Right_angle_90_degree_static_press < (90 - ERROR_MARGIN ) || Left_angle_90_degree_static_press < (90 - ERROR_MARGIN)) {
+    } else if (Right_angle_90_degree_static_press < (90 - ERROR_MARGIN) || Left_angle_90_degree_static_press < (90 - ERROR_MARGIN)) {
         correctFlag = 0
         return "Move your knees away from your chest"
 
