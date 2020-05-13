@@ -8,26 +8,36 @@ import org.tensorflow.lite.examples.posenet.lib.Person
 import kotlin.math.abs
 import kotlin.math.atan2
 
+/**
+ * The Exercise class is used to hold body-parts points and exercise name.
+ */
 data class Exercise(
     var name: String = "",
 
+    // posenet class containing body keypoints and confidence score.
     var person: Person
 )
 
+// Used to uniquely identify each Exercise type.
 enum class Exercises {
-    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK, PIKE_PRESS_UP, WALL_SIT, STRAIGHT_BRIDGE, NINTY_DEGREE_STATIC_PRESS
+    NO_EXERCISE, PUSH, PULL, PLANK, SIDE_PLANK, PIKE_PRESS_UP, WALL_SIT, STRAIGHT_BRIDGE, NINETY_DEGREE_STATIC_PRESS
 }
 
+// Margin to compensate for posenet inaccuracy.
 private const val ERROR_MARGIN: Double = 25.0
 private const val WALL_SIT_ERROR_MARGIN: Double = 10.0
-
+// Flag to ensure that correct Message is not annoyingly repeated.
 private var correctFlag: Int = 0
-
+// To discard applying algorithm for less accurate estimations less than 0.5.
 private val minConfidence = 0.5
-
+// Initialized inside each Exercise function to uniquely identify the Exercise.
 private var currentExercise: Exercises = Exercises.NO_EXERCISE
 
-
+/**
+ * @desc evaluate push-ups exercise.
+ * @param person Person - posenet class containing body keypoints and confidence score.
+ * @return string - Message:  whether the user has correctly executed the exercise or Tips to correctly execute the exercise.
+ */
 fun pushExercise(person: Person): String {
     currentExercise = Exercises.PUSH
 
@@ -98,6 +108,11 @@ fun pushExercise(person: Person): String {
     }
 }
 
+/**
+ * @desc evaluate pull-ups exercise.
+ * @param person Person - posenet class containing body keypoints and confidence score.
+ * @return string - Message:  whether the user has correctly executed the exercise or Tips to correctly execute the exercise.
+ */
 fun pullExercise(person: Person): String {
     currentExercise = Exercises.PULL
 
@@ -170,6 +185,11 @@ fun pullExercise(person: Person): String {
     }
 }
 
+/**
+ * @desc evaluate plank exercise.
+ * @param person Person - posenet class containing body keypoints and confidence score.
+ * @return string - Message:  whether the user has correctly executed the exercise or Tips to correctly execute the exercise.
+ */
 fun plankExercise(person: Person): String {
     currentExercise = Exercises.PLANK
 
@@ -240,7 +260,11 @@ fun plankExercise(person: Person): String {
     }
 }
 
-
+/**
+ * @desc evaluate side-plank exercise.
+ * @param person Person - posenet class containing body keypoints and confidence score.
+ * @return string - Message:  whether the user has correctly executed the exercise or Tips to correctly execute the exercise.
+ */
 fun sidePlankExercise(person: Person): String {
     currentExercise = Exercises.SIDE_PLANK
 
@@ -312,6 +336,11 @@ fun sidePlankExercise(person: Person): String {
     }
 }
 
+/**
+ * @desc evaluate pike-pressUp exercise.
+ * @param person Person - posenet class containing body keypoints and confidence score.
+ * @return string - Message:  whether the user has correctly executed the exercise or Tips to correctly execute the exercise.
+ */
 fun pikePressUpExercise(person: Person): String {
     val leftHip: KeyPoint? = person.keyPoints.find {
         it.bodyPart == BodyPart.LEFT_HIP
@@ -388,6 +417,11 @@ fun pikePressUpExercise(person: Person): String {
 
 }
 
+/**
+ * @desc evaluate wall-sit exercise.
+ * @param person Person - posenet class containing body keypoints and confidence score.
+ * @return string - Message:  whether the user has correctly executed the exercise or Tips to correctly execute the exercise.
+ */
 fun wallSitExercise(person: Person): String {
     currentExercise = Exercises.WALL_SIT
 
@@ -466,6 +500,11 @@ fun wallSitExercise(person: Person): String {
     }
 }
 
+/**
+ * @desc evaluate straight-bridge exercise.
+ * @param person Person - posenet class containing body keypoints and confidence score.
+ * @return string - Message:  whether the user has correctly executed the exercise or Tips to correctly execute the exercise.
+ */
 fun straightBridgeExercise(person: Person): String {
     currentExercise = Exercises.STRAIGHT_BRIDGE
 
@@ -544,8 +583,13 @@ fun straightBridgeExercise(person: Person): String {
     }
 }
 
-fun nintyDegreeStaticPressExercise(person: Person): String {
-    currentExercise = Exercises.NINTY_DEGREE_STATIC_PRESS
+/**
+ * @desc evaluate 90°-staticPress exercise.
+ * @param person Person - posenet class containing body keypoints and confidence score.
+ * @return string - Message:  whether the user has correctly executed the exercise or Tips to correctly execute the exercise.
+ */
+fun ninetyDegreeStaticPressExercise(person: Person): String {
+    currentExercise = Exercises.NINETY_DEGREE_STATIC_PRESS
 
     val leftHip: KeyPoint? = person.keyPoints.find {
         it.bodyPart == BodyPart.LEFT_HIP
@@ -625,6 +669,12 @@ fun nintyDegreeStaticPressExercise(person: Person): String {
     }
 }
 
+/**
+ * @desc match each exercise with the correct method to execute
+ * @param exercise Exercise
+ * @param context Context
+ * @return string - Message:  whether the user has correctly executed the exercise or Tips to correctly execute the exercise
+ */
 fun trackExercise(exercise: Exercise, context: Context): String {
 
     var status = ""
@@ -668,8 +718,8 @@ fun trackExercise(exercise: Exercise, context: Context): String {
             }
 
             context.getString(R.string.NINETY_DEGREE_STATIC_PRESS) -> {
-                if (currentExercise != Exercises.NINTY_DEGREE_STATIC_PRESS) correctFlag = 0
-                status = nintyDegreeStaticPressExercise(exercise.person)
+                if (currentExercise != Exercises.NINETY_DEGREE_STATIC_PRESS) correctFlag = 0
+                status = ninetyDegreeStaticPressExercise(exercise.person)
             }
 
         }
