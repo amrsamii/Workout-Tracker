@@ -19,6 +19,7 @@ Then it will track your body posture movement and warn you if you do any mistake
 
 ## Demo
 Click on the following image to see a demo that illustrate how the application works:
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/4zcYFrh3vwU&t/0.jpg)](https://www.youtube.com/watch?v=4zcYFrh3vwU&t)
 
 ## APK
