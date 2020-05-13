@@ -20,7 +20,7 @@ jobs:
     - name: Install NDK
       run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --stacktrace
 
   apk:
     name: Generate APK
@@ -32,8 +32,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: Install NDK
+        run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}
       - name: Build debug APK
-        run: ./gradlew -Pci --no-parallel assembleDebug --stacktrace
+        run: ./gradlew assembleDebug --stacktrace
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
