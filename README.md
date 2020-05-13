@@ -18,9 +18,7 @@ First it identifies the type of exercise you are doing whether it is: push-ups, 
 Then it will track your body posture movement and warn you if you do any mistake, also it will guide you to the correct form of the exercise so that avoiding any risks caused by wrong form training.
 
 ## Demo
-Click on the following link to see a demo that illustrate how the application works:
-
-[Demo](https://www.youtube.com/watch?v=4zcYFrh3vwU&t)
+Click on the following link to see a demo that illustrate how the application works: [Demo](https://www.youtube.com/watch?v=4zcYFrh3vwU&t)
 
 ## APK
 To get the last generated apk:
