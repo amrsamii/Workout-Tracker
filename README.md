@@ -17,6 +17,11 @@ So we came up with the idea of a Workout-Tracker to track your body posture whil
 First it identifies the type of exercise you are doing whether it is: push-ups, pull-ups, sit-ups and much more.
 Then it will track your body posture movement and warn you if you do any mistake, also it will guide you to the correct form of the exercise so that avoiding any risks caused by wrong form training.
 
+## Screenshots
+
+![Screenshot1](screenshots/screen_1.jpg)
+![Screenshot2](screenshots/screen_2.jpg)
+
 ## Demo
 Click on the following link to see a demo that illustrate how the application works: [Demo](https://www.youtube.com/watch?v=4zcYFrh3vwU&t)
 
