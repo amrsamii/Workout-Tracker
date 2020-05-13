@@ -4,11 +4,13 @@ import android.app.Activity
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import java.util.*
-
+/**
+ * class for converting string to speech.
+ */
 class TextToSpeech(private val activity: Activity) : TextToSpeech.OnInitListener {
 
     private val tts: TextToSpeech = TextToSpeech(activity, this)
-
+    // fun to initialize TTS and check if it is open correctly
     override fun onInit(i: Int) {
         if (i == TextToSpeech.SUCCESS) {
 
@@ -22,16 +24,16 @@ class TextToSpeech(private val activity: Activity) : TextToSpeech.OnInitListener
             Toast.makeText(activity, "Initialization Failed!", Toast.LENGTH_SHORT).show()
         }
     }
-
+// fun to convert String To oSpeech
     fun speakOut(message: String) {
         tts.speak(message, TextToSpeech.QUEUE_FLUSH, null, null)
     }
-
+// fun to shutdown TextToSpeech from running
     fun stopTTS() {
         tts.stop()
         tts.shutdown()
     }
-
+// fun  check if TTS is finish or not
     fun isTTSSpeaking(): Boolean {
         return tts.isSpeaking
     }
