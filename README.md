@@ -33,7 +33,7 @@ To get the last generated apk:
 - Unzip app file and install the apk.
 
 ## How can this be extended
-We can add a profile feature to the App which can track how the user is doing and if his form is improving. It will also track his progress in each exercies.
+We can add a profile feature to the App which can track how the user is doing and if his form is improving. It will also track his progress in each exercise.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
