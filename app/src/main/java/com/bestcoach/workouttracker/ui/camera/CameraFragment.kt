@@ -243,7 +243,7 @@ class CameraFragment : Fragment() {
         // Perform inference.
         val person = posenet.estimateSinglePose(scaledBitmap)
         activity?.runOnUiThread {
-            canvasView.draw(posenet, person, scaledBitmap)
+            canvasView.draw(person, scaledBitmap)
         }
 
         context?.let { context ->

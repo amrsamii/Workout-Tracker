@@ -34,6 +34,8 @@ class StartFragment : Fragment() {
             requireContext(),
             R.layout.spinner_item, exercises
         )
+
+        // Populate the spinner with the list of exercises
         binding.workoutSpinner.adapter = adapter
 
         viewModel.eventNavigateToCamera.observe(viewLifecycleOwner) {

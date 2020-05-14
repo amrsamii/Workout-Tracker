@@ -14,6 +14,7 @@ private const val TEXT_SIZE = 80f
 
 class CanvasView(context: Context) : View(context) {
 
+    // flag to indicate if this view is drawn for the first time
     private var firstTime = true
 
     /** Threshold for confidence score. */
@@ -22,8 +23,10 @@ class CanvasView(context: Context) : View(context) {
     /** Radius of circle used to draw keypoints.  */
     private val circleRadius = 8.0f
 
-    private lateinit var posenet: Posenet
+    // Current frame from camera to process
     private lateinit var bitmap: Bitmap
+
+    // Current estimated person
     private lateinit var person: Person
 
     private val paint = Paint().apply {
@@ -50,15 +53,16 @@ class CanvasView(context: Context) : View(context) {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        // if it is first time to draw the view, i.e when it is attached to the view group, we have nothing to draw yet from Posesnet
         if (firstTime) {
             firstTime = false
         } else {
+            // draw the view since Posenet sent a new person and a bitmap
             drawPerson(canvas)
         }
     }
 
-    fun draw(posenet: Posenet, person: Person, bitmap: Bitmap) {
-        this.posenet = posenet
+    fun draw(person: Person, bitmap: Bitmap) {
         this.person = person
         this.bitmap = bitmap
         // force the view to draw from scratch

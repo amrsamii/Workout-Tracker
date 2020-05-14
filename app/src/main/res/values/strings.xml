@@ -23,16 +23,13 @@
     <string name="current_exercise">Current exercise: %s</string>
 
     <string-array name="Exercises">
-        <item>Push-Ups</item>
-        <item>Pull-Ups</item>
-        <item>Plank</item>
-        <item>Side Plank</item>
-        <item>Pike Press Up</item>
-        <item>Wall Sit</item>
-        <item>Straight Bridge</item>
-        <item>90° Static Press</item>
+        <item>@string/PUSH</item>
+        <item>@string/PULL</item>
+        <item>@string/PLANK</item>
+        <item>@string/SIDE_PLANK</item>
+        <item>@string/PIKE_PRESS_UP</item>
+        <item>@string/WALL_SIT</item>
+        <item>@string/STRAIGHT_BRIDGE</item>
+        <item>@string/NINETY_DEGREE_STATIC_PRESS</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
