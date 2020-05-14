@@ -11,12 +11,14 @@ import kotlin.math.min
 private const val RATIO_4_3_VALUE = 4.0 / 3.0
 private const val RATIO_16_9_VALUE = 16.0 / 9.0
 
-/** Model input shape for images.   */
+/** Posenet model input shape for images.   */
 const val MODEL_WIDTH = 257
 const val MODEL_HEIGHT = 257
 
 object ImageUtils {
-
+    /*
+     * function to return the aspect ratio from width and height
+     */
     fun aspectRatio(width: Int, height: Int): Int {
         val previewRatio = max(width, height).toDouble() / min(width, height)
         if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
@@ -61,6 +63,9 @@ object ImageUtils {
         return croppedBitmap
     }
 
+    /*
+     * function to convert the image from YUV to RGB
+     */
     fun Image.toBitmap(): Bitmap {
         val yBuffer = planes[0].buffer // Y
         val uBuffer = planes[1].buffer // U
